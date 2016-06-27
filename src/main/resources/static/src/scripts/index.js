@@ -1,11 +1,10 @@
 import {ApplicationController} from './controllers/application-controller.js';
 
-(function() {
-    let controller = new ApplicationController();
-    controller.sayHello();
+var controller = new ApplicationController();
+controller.sayHello();
 
-    let toastButton = document.getElementById('toast-button');
-    toastButton.addEventListener('click', () => {
-       controller.showToast();
-    });
-})();
+var toastButton = document.getElementById('toast-button');
+toastButton.addEventListener('click', () => {
+    controller.showToast();
+    // comment
+});

@@ -1,9 +1,3 @@
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-};
-
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -34,9 +28,14 @@ var ApplicationController = function () {
     }
 
     createClass(ApplicationController, [{
+        key: "sayHello",
+        value: function sayHello() {
+            console.log("Hello world!");
+        }
+    }, {
         key: "showToast",
         value: function showToast() {
-            if ((typeof Windows === "undefined" ? "undefined" : _typeof(Windows)) !== undefined) {
+            if (typeof Windows !== "undefined") {
                 var notifications = Windows.UI.Notifications;
                 var template = notifications.ToastTemplateType.toastImageAndText01;
                 var toastXml = notifications.ToastNotificationManager.getTemplateContent(template);
@@ -50,22 +49,16 @@ var ApplicationController = function () {
                 toastNotifier.show(toast);
             }
         }
-    }], [{
-        key: "sayHello",
-        value: function sayHello() {
-            console.log('Hello world!');
-        }
     }]);
     return ApplicationController;
 }();
 
-(function () {
-    var controller = new ApplicationController();
-    controller.sayHello();
+var controller = new ApplicationController();
+controller.sayHello();
 
-    var toastButton = document.getElementById('toast-button');
-    toastButton.addEventListener('click', function () {
-        controller.showToast();
-    });
-})();
+var toastButton = document.getElementById('toast-button');
+toastButton.addEventListener('click', function () {
+    controller.showToast();
+    // comment
+});
 //# sourceMappingURL=bundle.js.map

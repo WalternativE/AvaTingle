@@ -1,11 +1,11 @@
 export class ApplicationController {
 
-    static sayHello() {
-        console.log('Hello world!');
+    sayHello() {
+        console.log("Hello world!");
     }
 
     showToast() {
-        if (typeof Windows !== undefined) {
+        if (typeof Windows !== "undefined") {
             var notifications = Windows.UI.Notifications;
             var template = notifications.ToastTemplateType.toastImageAndText01;
             var toastXml = notifications.ToastNotificationManager.getTemplateContent(template);
