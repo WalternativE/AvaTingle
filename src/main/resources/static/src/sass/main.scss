@@ -1,0 +1,22 @@
+@import "../../node_modules/material-design-lite/src/material-design-lite";
+@import "core/colors";
+
+html, body {
+}
+
+.content-grid {
+  max-width: 960px;
+}
+
+.card-centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-container {
+  padding-top: 10px;
+}
+
+.photo-card {
+  min-width: 600px;
+}

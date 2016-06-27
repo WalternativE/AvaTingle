@@ -1,0 +1,27 @@
+{{> partials/top-partial}}
+
+<header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">{{foo}}</span>
+    </div>
+</header>
+
+<section class="main-container">
+    <div class="mdl-card card-centered mdl-shadow--2dp photo-card">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Photo Booth</h2>
+        </div>
+        <div class="mdl-card__media">
+            <canva></canva>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <p>Here you can take a photo</p>
+        </div>
+        <div class="mdl-card__actions">
+            <button class="mdl-button mdl-js-button mdl-button--raised">Take Photo</button>
+        </div>
+    </div>
+</section>
+
+{{> partials/bottom-partial}}
