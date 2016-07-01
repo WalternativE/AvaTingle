@@ -42,7 +42,7 @@ export class ApplicationController {
             captureUI.captureFileAsync(Windows.Media.Capture.CameraCaptureUIMode.photo).then(function (capturedItem) {
                 console.log(capturedItem);
                 let image = new Image();
-                image.src = capturedItem.path;
+                image.src = URL.createObjectURL(capturedItem, {oneTimeOnly: true});
 
                 let wrapper = document.getElementById('media-wrapper');
                 for (let i = 0; i < wrapper.childNodes.length; i++) {
