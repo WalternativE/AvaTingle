@@ -86,25 +86,42 @@ var ApplicationController = function () {
                     var image = new Image();
                     image.src = capturedItem.path;
 
-                    var canvas = document.getElementById('image-canvas');
+                    var wrapper = document.getElementById('media-wrapper');
+                    for (var i = 0; i < wrapper.childNodes.length; i++) {
+                        wrapper.childNodes[i].remove();
+                    }
+
+                    var canvas = document.createElement('canvas');
                     var context = canvas.getContext('2d');
 
-                    context.drawImage(image, 0, 0);
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+
+                    context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
+
+                    wrapper.appendChild(canvas);
                 });
             } else if (Util.hasGetUserMedia()) {
                 (function () {
-                    // navigator.getUserMedia = navigator.webkitGetUserMedia ||
-                    //     navigator.mozGetUserMedia || navigator.msGetUserMedia;
+                    var wrapper = document.getElementById('media-wrapper');
+                    for (var i = 0; i < wrapper.childNodes.length; i++) {
+                        wrapper.childNodes[i].remove();
+                    }
 
-                    var video = document.querySelector('video');
-                    var canvas = document.getElementById('image-canvas');
+                    var video = document.createElement('video');
+                    video.setAttribute('autoplay', true);
 
                     navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(function (localMediaStream) {
                         video.src = window.URL.createObjectURL(localMediaStream);
-                        video.addEventListener('click', function () {
-                            var context = canvas.getContext('2d');
-                            context.drawImage(video, 0, 0);
+                        video.addEventListener('click', function (e) {
+                            console.log(e);
+
+                            localMediaStream.getVideoTracks().forEach(function (videoTrack) {
+                                videoTrack.stop();
+                            });
                         });
+
+                        wrapper.appendChild(video);
                     });
                 })();
             } else {

@@ -44,25 +44,43 @@ export class ApplicationController {
                 let image = new Image();
                 image.src = capturedItem.path;
 
-                let canvas = document.getElementById('image-canvas');
+                let wrapper = document.getElementById('media-wrapper');
+                for (let i = 0; i < wrapper.childNodes.length; i++) {
+                    wrapper.childNodes[i].remove();
+                }
+
+                let canvas = document.createElement('canvas');
                 let context = canvas.getContext('2d');
 
-                context.drawImage(image, 0, 0);
+                canvas.width = image.width;
+                canvas.height = image.height;
+
+                context.drawImage(image, 0, 0, image.width, image.height,
+                    0, 0, canvas.width, canvas.height);
+
+                wrapper.appendChild(canvas);
             });
         } else if (Util.hasGetUserMedia()) {
-            // navigator.getUserMedia = navigator.webkitGetUserMedia ||
-            //     navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            let wrapper = document.getElementById('media-wrapper');
+            for (let i = 0; i < wrapper.childNodes.length; i++) {
+                wrapper.childNodes[i].remove();
+            }
 
-            let video = document.querySelector('video');
-            let canvas = document.getElementById('image-canvas');
+            let video = document.createElement('video');
+            video.setAttribute('autoplay', true);
 
             navigator.mediaDevices.getUserMedia({video: true, audio: false})
                 .then((localMediaStream) => {
                     video.src = window.URL.createObjectURL(localMediaStream);
-                    video.addEventListener('click', () => {
-                        let context = canvas.getContext('2d');
-                        context.drawImage(video, 0, 0);
+                    video.addEventListener('click', (e) => {
+                        console.log(e);
+
+                        localMediaStream.getVideoTracks().forEach((videoTrack) => {
+                            videoTrack.stop();
+                        });
                     });
+
+                    wrapper.appendChild(video);
                 });
         } else {
             this.showWebToast("I don't have a camera for that :(");
