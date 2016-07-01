@@ -49,16 +49,7 @@ export class ApplicationController {
                     wrapper.childNodes[i].remove();
                 }
 
-                let canvas = document.createElement('canvas');
-                let context = canvas.getContext('2d');
-
-                canvas.width = image.width;
-                canvas.height = image.height;
-
-                context.drawImage(image, 0, 0, image.width, image.height,
-                    0, 0, canvas.width, canvas.height);
-
-                wrapper.appendChild(canvas);
+                wrapper.appendChild(image);
             });
         } else if (Util.hasGetUserMedia()) {
             let wrapper = document.getElementById('media-wrapper');
